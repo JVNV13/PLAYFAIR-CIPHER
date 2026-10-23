@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#020603">
+  <title>Playfair</title>
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <canvas id="rainFar" class="rain far" aria-hidden="true"></canvas><canvas id="rainNear" class="rain"
+    aria-hidden="true"></canvas>
+  <div class="ambient" aria-hidden="true"></div>
+  <header class="topbar wrap">
+    <a class="brand" href="#" aria-label="Playfair Cipher Lab home"><span class="brand-mark">&gt;_</span><span>PLAYFAIR</span></a>
+  </header>
+  <main class="wrap">
+    <section class="hero">
+      <h1><em>Playfair Cipher</em></h1>
+    </section>
+
+    <section class="workbench">
+      <aside class="controls panel">
+        <div class="section-kicker">YOUR MESSAGE</div>
+        <label for="keyInput">KEYWORD </label>
+        <div class="input-shell"><input id="keyInput" value="MONARCHY" autocomplete="off" spellcheck="false"
+            aria-describedby="keyHint"></div>
+        <label for="messageInput" class="message-label">MESSAGE <span id="charCount" class="label-note">0
+            letters</span></label>
+        <textarea id="messageInput" rows="4" spellcheck="false">HELLO</textarea>
+        <div class="mode-switch" role="group" aria-label="Cipher mode">
+          <button data-mode="encrypt" class="mode active">Encrypt</button>
+          <button data-mode="decrypt" class="mode">Decrypt</button></div>
+        <button id="runButton" class="run-button"><span>ERZA3</span></button>
+        <div class="input-notice" id="inputNotice" aria-live="polite"></div>
+        <div class="mini-note"><span><br>Repeated letters are separated by X. If the pair is XX, we
+            use Q instead </span></div>
+      </aside>
+
+      <section class="matrix-panel panel">
+        <div class="panel-heading">
+          <div>
+          </div><span class="matrix-stamp">5 × 5</span>
+        </div>
+        <div class="matrix-wrap"><svg id="matrix" role="img" aria-label="Playfair cipher key square"></svg></div>
+      </section>
+
+      <aside class="steps-panel panel">
+        <div class="panel-heading steps-heading">
+          <div>
+            <h2>STEPS</h2>
+          </div><span id="stepCount" class="count-pill">0 / 0</span>
+        </div>
+        <div class="steps-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>PAIR</th>
+                <th>RULE</th>
+                <th>→</th>
+              </tr>
+            </thead>
+            <tbody id="stepRows"></tbody>
+          </table>
+          <div id="emptySteps" class="empty-steps">Run a message to see each pair at work.</div>
+        </div>
+        <div class="caption-box">
+          <p id="caption" aria-live="polite">Your walkthrough will appear here, one clear step at a time.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="player panel">
+      <div class="pairs-area">
+        <div class="section-kicker">DIGRAPHS</div>
+        <div id="pairs" class="pairs"><span class="pairs-placeholder">Your message will split into pairs here.</span>
+        </div>
+        <div class="progress-track">
+          <div id="progressBar"></div>
+        </div>
+      </div>
+      <div class="player-controls"><button id="restartButton" class="transport" aria-label="Restart"
+          title="Restart">↺</button><button id="backButton" class="transport" aria-label="Previous step"
+          title="Previous step">‹</button><button id="playButton" class="play-button"
+          aria-label="Play walkthrough"><span id="playIcon">▶</span></button><button id="nextButton" class="transport"
+          aria-label="Next step" title="Next step">›</button>
+        <div class="speed-control"><label for="speedInput">PACE</label><input id="speedInput" type="range" min="0.5"
+            max="2" value="1" step="0.25"><span id="speedValue">1×</span></div>
+      </div>
+    </section>
+    <section class="result-panel panel">
+      <div class="result-label">
+        <div class="section-kicker">THE RESULT</div><span class="result-mode" id="resultMode">ENCRYPTED MESSAGE</span>
+      </div>
+      <div class="result-content">
+        <div id="output" class="output" aria-live="polite"><span class="result-placeholder">Your result will appear as
+            the cipher runs.</span></div><button id="copyButton" class="copy-button" disabled><span>Copy
+            result</span></button>
+      </div>
+      <div id="resultNote" class="result-note"></div>
+    </section>
+    <footer><button id="glossaryButton">NOTES<span></span></button></footer>
+  </main>
+  <dialog id="glossary"><button class="close-dialog" aria-label="Close glossary">×</button>
+    <h2>A few useful words</h2>
+    <dl>
+      <dt>Digraph</dt>
+      <dd>A pair of letters processed together.</dd>
+      <dt>Key square</dt>
+      <dd>The 5 × 5 grid that decides where every letter moves.</dd>
+      <dt>Wrap-around</dt>
+      <dd>When a letter at an edge continues from the opposite edge.</dd>
+      <dt>Filler</dt>
+      <dd>An X (or Q for XX) added to separate repeated letters or complete a pair.</dd>
+    </dl>
+  </dialog>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+
+</html>
